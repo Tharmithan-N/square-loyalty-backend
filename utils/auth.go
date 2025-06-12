@@ -10,7 +10,6 @@ const (
 	fakeUserToken = "fake-jwt-token"
 )
 
-// Middleware to protect routes (checks Authorization header)
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("Authorization")
@@ -23,9 +22,8 @@ func AuthMiddleware() gin.HandlerFunc {
 	}
 }
 
-// Fake login handler
 func FakeLogin(c *gin.Context) {
-	// Accept any username/password in body for demo
+
 	type loginInput struct {
 		Username string `json:"username"`
 		Password string `json:"password"`
@@ -36,9 +34,6 @@ func FakeLogin(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
-
-	// You can add logic to validate username/password here.
-	// For now, always succeed.
 
 	c.JSON(http.StatusOK, gin.H{
 		"token": fakeUserToken,
